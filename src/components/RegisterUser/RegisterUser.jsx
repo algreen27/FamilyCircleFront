@@ -1,51 +1,91 @@
 import axios from "axios";
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useForm } from "react";
+ 
 
-const RegisterUser = () => {
-  const { register, handleSubmit } = useform(regForm);
 
-  async function regForm() {
-    await axios
-      .post(`http://localhost:5020/api/user/`, {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-      })
-      .then((res) => {
-        getRegistered();
-      });
-  }
+const RegisterUser = (props) => {
+    const [state , setState] = useState({
+        firstName: "",
+        lastName: "",
+        email : "",
+        password : ""
+    })
+    const handleChange = (e) => {
+        const {id , value} = e.target   
+        setState(prevState => ({
+            ...prevState,
+            [id] : value
+        }))
+    }
+
+    const handleSubmitClick = (e) => {
+        <e className="preventDefault"></e>
+    }
+  
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          {...register("firstName", { required: true })}
-          placeholder="First name"
-        />
+      <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
+            <form>
+                <div className="form-group text-left">
+                <label htmlFor="exampleInputName1">First Name</label>
+                <input type="text" 
+                       className="form-control" 
+                       id="text" 
+                    //    aria-describedby="emailHelp" 
+                       placeholder="Enter first name"
+                       value={state.firstName}
+                       onChange={handleChange}
+                />
+                </div>
+                <div className="form-group text-left">
+                <label htmlFor="exampleInputName2">Last Name</label>
+                <input type="text" 
+                       className="form-control" 
+                       id="text" 
+                    //    aria-describedby="emailHelp" 
+                       placeholder="Enter last name"
+                       value={state.lastName}
+                       onChange={handleChange}
+                />
+                </div>
+                <div className="form-group text-left">
+                <label htmlFor="exampleInputEmail1">Email address</label>
+                <input type="email" 
+                       className="form-control" 
+                       id="email" 
+                       aria-describedby="emailHelp" 
+                       placeholder="Enter email"
+                       value={state.email}
+                       onChange={handleChange}
+                />
+                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div className="form-group text-left">
+                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <input type="password" 
+                        className="form-control" 
+                        id="password" 
+                        placeholder="Password"
+                        onChange={handleChange}
 
-        <input
-          {...register("lastName", { minLength: 2 })}
-          placeholder="Last name"
-        />
-
-        <select {...register("category")}>
-          <option value="">Select...</option>
-          <option value="A">Category A</option>
-          <option value="B">Category B</option>
-        </select>
-
-        <input {...register("checkbox")} type="checkbox" value="A" />
-        <input {...register("checkbox")} type="checkbox" value="B" />
-        <input {...register("checkbox")} type="checkbox" value="C" />
-
-        <input {...register("radio")} type="radio" value="A" />
-        <input {...register("radio")} type="radio" value="B" />
-        <input {...register("radio")} type="radio" value="C" />
-
-        <input type="submit" />
-      </form>
-      ); 
+                    />
+                </div>
+                {/* <div className="form-group text-left">
+                    <label htmlFor="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" 
+                        className="form-control" 
+                        id="confirmPassword" 
+                        placeholder="Confirm Password"
+                    />
+                </div> */}
+                <button 
+                    type="submit" 
+                    className="btn btn-primary"
+                >
+                    Register
+                </button>
+            </form>
+    </div>
     </div>
   );
 };
