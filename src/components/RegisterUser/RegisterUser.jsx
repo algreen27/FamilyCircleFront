@@ -1,25 +1,28 @@
-import axios from "axios";
-import React, { useForm } from "react";
+import React, {  useState } from "react";
  
 
 
 const RegisterUser = (props) => {
-    const [state , setState] = useState({
+    const [user , setUser] = useState({
         firstName: "",
         lastName: "",
         email : "",
         password : ""
     })
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        props.login();
+
+
+    }
+
     const handleChange = (e) => {
         const {id , value} = e.target   
-        setState(prevState => ({
+        setUser(prevState => ({
             ...prevState,
             [id] : value
         }))
-    }
-
-    const handleSubmitClick = (e) => {
-        <e className="preventDefault"></e>
     }
   
   return (
@@ -28,23 +31,24 @@ const RegisterUser = (props) => {
             <form>
                 <div className="form-group text-left">
                 <label htmlFor="exampleInputName1">First Name</label>
-                <input type="text" 
+                <input type="firstName" 
                        className="form-control" 
-                       id="text" 
-                    //    aria-describedby="emailHelp" 
+                       id="firstName" 
+                       aria-describedby="emailHelp" 
                        placeholder="Enter first name"
-                       value={state.firstName}
+                       value={user.firstName}
                        onChange={handleChange}
+                    //    required={true}
                 />
                 </div>
                 <div className="form-group text-left">
                 <label htmlFor="exampleInputName2">Last Name</label>
-                <input type="text" 
+                <input type="lastName" 
                        className="form-control" 
-                       id="text" 
-                    //    aria-describedby="emailHelp" 
+                       id="lastName" 
+                       aria-describedby="emailHelp" 
                        placeholder="Enter last name"
-                       value={state.lastName}
+                       value={user.lastName}
                        onChange={handleChange}
                 />
                 </div>
@@ -55,7 +59,7 @@ const RegisterUser = (props) => {
                        id="email" 
                        aria-describedby="emailHelp" 
                        placeholder="Enter email"
-                       value={state.email}
+                       value={user.email}
                        onChange={handleChange}
                 />
                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -81,6 +85,7 @@ const RegisterUser = (props) => {
                 <button 
                     type="submit" 
                     className="btn btn-primary"
+                    onClick={handleSubmit}
                 >
                     Register
                 </button>
