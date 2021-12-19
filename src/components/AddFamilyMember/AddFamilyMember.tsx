@@ -25,34 +25,37 @@ interface Props {
   onSubmit: (name: string) => void;
 }
 
-const AddFamilyMember: React.FC<Props> = ({
-  isOpen,
-  onClose,
-  onSubmit,
-}) => {
+const AddFamilyMember: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
   const [name, setName] = useState("");
   return (
-  <Modal isOpen={isOpen} onClose={onClose}>
-    <ModalOverlay />
-    <ModalContent>
-      <ModalHeader>Add Family Member</ModalHeader>
-      <ModalCloseButton />
-      <ModalBody>
-        <FormControl>
-          <FormLabel> Family Member</FormLabel>
-          <Input
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </FormControl>
-      </ModalBody>
-      <ModalFooter>
-        <Button colorScheme="green" onClick={() => onSubmit(name)} disabled={!name}>
-          Add
-        </Button>
-      </ModalFooter>
-    </ModalContent>
-  </Modal>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Add Family Member</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <FormControl>
+            <FormLabel> Family Member</FormLabel>
+            <Input
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
+          </FormControl>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            colorScheme="green"
+            onClick={() => {
+              onSubmit(name);
+              onClose();
+            }}
+            disabled={!name}
+          >
+            Add
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 
